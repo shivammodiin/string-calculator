@@ -17,4 +17,12 @@ describe("String Calculator", () => {
     it("supports newline as a delimiter", () => {
         expect(calculateStringSum("9\n2,5")).toEqual(16);
       });
+
+      it("supports custom delimiters specified at the start", () => {
+        expect(calculateStringSum("//;\n1;2")).toEqual(3);
+      });
+  
+      it("handles multiple numbers with a custom delimiter", () => {
+        expect(calculateStringSum("//;;\n1;;2;;3")).toEqual(6);
+      });
 });
