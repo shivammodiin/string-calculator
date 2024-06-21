@@ -11,6 +11,10 @@ describe("String Calculator", () => {
     });
       
     it('returns 13 for the input "7,6"', () => {
-    expect(calculateStringSum("7,6")).toEqual(13);
+      expect(calculateStringSum("7,6")).toEqual(13);
     });
+
+    it("supports newline as a delimiter", () => {
+        expect(calculateStringSum("9\n2,5")).toEqual(16);
+      });
 });
