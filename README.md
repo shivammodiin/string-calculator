@@ -1,4 +1,4 @@
-    # String Sum Calculator
+# String Sum Calculator
 
 This project implements a string sum calculator using TypeScript, following the principles of Test-Driven Development (TDD). The calculator supports custom delimiters and handles various edge cases, including negative numbers.
 
