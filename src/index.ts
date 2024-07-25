@@ -3,20 +3,15 @@ export function calculateStringSum(input: string): number {
     const sanitizedInput = input.replace(/[^\S\n]+/g, "");  // Remove all non-whitespace characters except newlines
     let processedInput = sanitizedInput;
 
-    // Check for custom delimiter at the start of the string
-    if (processedInput.startsWith("//")) {
-        const delimiterEndIndex = processedInput.indexOf("\n"); 
-        if (delimiterEndIndex !== -1) {
-            delimiter = processedInput.substring(2, delimiterEndIndex);  // Extract custom delimiter
-            processedInput = processedInput.substring(delimiterEndIndex + 1); 
-        }
-    }
+   const customDelString = findCustomDeli(processedInput);
+   delimiter = customDelString.newDeli;
+   processedInput = customDelString.processedInput;
+
 
     // Replace all newline characters with the current delimiter
     processedInput = processedInput.replace(/\n/g, delimiter);
     
-    const numberStrings: string[] = processedInput.split(delimiter); 
-    const numbersArray: number[] = numberStrings.map(str => +str);
+    const numbersArray: number[] = processedInput.split(delimiter).map(str => +str);
     const negativeNumbers = numbersArray.filter(num => num < 0);
     
     if (negativeNumbers.length > 0) {
@@ -26,4 +21,17 @@ export function calculateStringSum(input: string): number {
     if (processedInput === '') return 0;
     
     return numbersArray.reduce((sum, num) => sum + num, 0);
+}
+
+
+const findCustomDeli = (processedInput:string) => {
+    let newDeli = ",";
+    if (processedInput.startsWith("//")) {
+        const delimiterEndIndex = processedInput.indexOf("\n"); 
+        if (delimiterEndIndex !== -1) {
+            newDeli = processedInput.substring(2, delimiterEndIndex);  // Extract custom delimiter
+            processedInput = processedInput.substring(delimiterEndIndex + 1); 
+        }
+    }
+    return {newDeli, processedInput}
 }
